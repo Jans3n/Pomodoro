@@ -1,12 +1,12 @@
 import React from 'react'
 
-function customButton({buttonName}) {
+function CustomButton({name, onClick}) {
   return (
     <>
       <div>
-        <button>{buttonName}</button>
+        <button onClick={onClick}>{name}</button>
       </div>
     </>
   )
 }
-export default customButton
+export default CustomButton

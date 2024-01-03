@@ -1,13 +1,14 @@
 import React from 'react'
-import CustomButton  from './components/customButton'
+import CustomButton from './components/customButton'
+import Timer from './components/Timer'
 import './App.css'
 
 function App() {
   return (
     <>
       <div>
-        <h1>test</h1>
-        <CustomButton buttonName="Start" />
+        <Timer />
+        {/* <CustomButton name="Start" /> */}
       </div>
     </>
   )
