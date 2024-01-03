@@ -3,7 +3,9 @@ import CustomButton from './customButton';
 
 function Timer() {
 
-  const pomodoroInSeconds = 0.1 * 60;
+  const pomodoroInSeconds = 25 * 60;
+  const shortBreakInSeconds = 5 * 60;
+  const longBreakInSeconds = 10 * 60;
 
   const [time, setTime] = useState(pomodoroInSeconds);
   const [timerIsRunning, setTimerIsRunning] = useState(false);
@@ -33,6 +35,15 @@ function Timer() {
 
   }, [timerIsRunning])
 
+  const changeTimerMode = (newTime) => {
+    setTimerIsRunning(false);
+    setTime(newTime)
+  }
+
+  const pomodoroModeClick = () => changeTimerMode(pomodoroInSeconds);
+  const shortBreakModeClick = () => changeTimerMode(shortBreakInSeconds);
+  const longBreakModeClick = () => changeTimerMode(longBreakInSeconds);
+
   const startTimerClick = () => {
     setTimerIsRunning(true);
   }
@@ -47,6 +58,10 @@ function Timer() {
   return (
     <>
       <div>
+        <CustomButton name="pomodoro" onClick={pomodoroModeClick}/>
+        <CustomButton name="short break" onClick={shortBreakModeClick}/>
+        <CustomButton name="long break" onClick={longBreakModeClick}/>
+
         <h1>Countdown Timer</h1>
         <p>{String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}</p>
         {!timerIsRunning ? (
