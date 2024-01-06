@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import CustomButton from './customButton';
 
+const TimerModes = {
+  POMODORO: 'pomodoro',
+  SHORT_BREAK: 'shortBreak',
+  LONG_BREAK: 'longBreak',
+};
+
+const modeDurationsInSeconds = {
+  [TimerModes.POMODORO]: 25 * 60,
+  [TimerModes.SHORT_BREAK]: 5 * 60,
+  [TimerModes.LONG_BREAK]: 15 * 60,
+};
+
 function Timer() {
 
-  const pomodoroInSeconds = 25 * 60;
-  const shortBreakInSeconds = 5 * 60;
-  const longBreakInSeconds = 10 * 60;
-
-  const [time, setTime] = useState(pomodoroInSeconds);
+  const [time, setTime] = useState(modeDurationsInSeconds[TimerModes.POMODORO]);
   const [timerIsRunning, setTimerIsRunning] = useState(false);
+  const [currentTimerMode, setCurrentTimerMode] = useState(TimerModes.POMODORO);
 
   useEffect(() => {
     let interval;
 
-    if (timerIsRunning){
+    if (timerIsRunning) {
       interval = setInterval(() => {
         setTime(prevTime => {
           if (prevTime > 0) {
@@ -27,22 +36,21 @@ function Timer() {
         })
       }, 1000)
     } else {
-        clearInterval(interval)
+      clearInterval(interval)
     }
 
     // Cleanup interval on unmount
     return () => clearInterval(interval);
 
-  }, [timerIsRunning])
+  }, [timerIsRunning, currentTimerMode])
 
-  const changeTimerMode = (newTime) => {
-    setTimerIsRunning(false);
-    setTime(newTime)
+  const changeTimerMode = (newMode) => {
+    if (currentTimerMode !== newMode){
+      setTimerIsRunning(false);
+      setCurrentTimerMode(newMode);
+      setTime(modeDurationsInSeconds[newMode])
+    }
   }
-
-  const pomodoroModeClick = () => changeTimerMode(pomodoroInSeconds);
-  const shortBreakModeClick = () => changeTimerMode(shortBreakInSeconds);
-  const longBreakModeClick = () => changeTimerMode(longBreakInSeconds);
 
   const startTimerClick = () => {
     setTimerIsRunning(true);
@@ -58,16 +66,16 @@ function Timer() {
   return (
     <>
       <div>
-        <CustomButton name="pomodoro" onClick={pomodoroModeClick}/>
-        <CustomButton name="short break" onClick={shortBreakModeClick}/>
-        <CustomButton name="long break" onClick={longBreakModeClick}/>
+        <CustomButton name="pomodoro" onClick={() => changeTimerMode(TimerModes.POMODORO)} />
+        <CustomButton name="short break" onClick={() => changeTimerMode(TimerModes.SHORT_BREAK)} />
+        <CustomButton name="long break" onClick={() => changeTimerMode(TimerModes.LONG_BREAK)} />
 
         <h1>Countdown Timer</h1>
         <p>{String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}</p>
         {!timerIsRunning ? (
           <CustomButton name="Start" onClick={startTimerClick} />
         ) : (
-          <CustomButton name="Pause" onClick={pauseTimerClick}/>
+          <CustomButton name="Pause" onClick={pauseTimerClick} />
         )}
       </div>
     </>
