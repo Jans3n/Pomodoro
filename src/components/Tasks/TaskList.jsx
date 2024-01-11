@@ -28,6 +28,16 @@ function Tasks() {
     setTaskText('')
   }
 
+  const toggleCompleted = (id) => {
+    setTasks(tasks.map(task => {
+      if (task.id == id){
+        return {...task, completed: !task.completed}
+      } else {
+        return task
+      }
+    }))
+  }
+
   const deleteTask = (id) => {
     const newTasks = tasks.filter(task => task.id !== id)
     setTasks(newTasks)
@@ -45,6 +55,7 @@ function Tasks() {
               key={task.id}
               task={task}
               deleteTask={deleteTask}
+              toggleCompleted={toggleCompleted}
             />
           ))}
         </div>
