@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import CustomButton from './customButton';
+import CustomButton from '../UI/CustomButton';
 
 const TimerModes = {
   POMODORO: 'pomodoro',

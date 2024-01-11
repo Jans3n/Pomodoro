@@ -1,6 +1,7 @@
 import React from 'react'
-import CustomButton from './components/customButton'
-import Timer from './components/Timer'
+import CustomButton from './components/UI/CustomButton'
+import Timer from './components/Timer/Timer'
+import TaskList from './components/Tasks/TaskList'
 import './App.css'
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
     <>
       <div>
         <Timer />
-        {/* <CustomButton name="Start" /> */}
+        <TaskList />
       </div>
     </>
   )
