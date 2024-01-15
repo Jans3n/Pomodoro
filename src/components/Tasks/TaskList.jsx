@@ -38,6 +38,10 @@ function Tasks() {
     }))
   }
 
+  const editTask = (id) => {
+    
+  }
+
   const deleteTask = (id) => {
     const newTasks = tasks.filter(task => task.id !== id)
     setTasks(newTasks)
@@ -46,7 +50,7 @@ function Tasks() {
   return (
     <>
       <div>
-        <h1 class="title">Tasks</h1>
+        <h1 className="title">Tasks</h1>
         <CustomButton name="Add Task" onClick={() => addTask(taskText)}/>
         <input type="text" value={taskText} onChange={(e) => setTaskText(e.target.value)}/>
         <div>

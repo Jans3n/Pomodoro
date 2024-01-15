@@ -1,0 +1,11 @@
+.TimerModeButton{
+  color: white;
+  border-radius: 4px;
+  margin: 0px;
+  padding: 2px 12px;
+  font-family: 'Space Grotesk';
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: none;
+  border: none;
+}

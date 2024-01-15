@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CustomButton from '../UI/CustomButton';
+import TimerButton from '../UI/TimerModeButton';
+import './Timer.css'
 
 const TimerModes = {
   POMODORO: 'pomodoro',
@@ -65,13 +67,15 @@ function Timer() {
 
   return (
     <>
-      <div>
-        <CustomButton name="pomodoro" onClick={() => changeTimerMode(TimerModes.POMODORO)} />
-        <CustomButton name="short break" onClick={() => changeTimerMode(TimerModes.SHORT_BREAK)} />
-        <CustomButton name="long break" onClick={() => changeTimerMode(TimerModes.LONG_BREAK)} />
+      <div className='TimerContainer'>
+        <div className='TimerButtons'>
+          <TimerButton label="pomodoro" onClick={() => changeTimerMode(TimerModes.POMODORO)} active={currentTimerMode == TimerModes.POMODORO}/>
+          <TimerButton label="short break" onClick={() => changeTimerMode(TimerModes.SHORT_BREAK)} active={currentTimerMode == TimerModes.SHORT_BREAK}/>
+          <TimerButton label="long break" onClick={() => changeTimerMode(TimerModes.LONG_BREAK)} active={currentTimerMode == TimerModes.LONG_BREAK}/>
+        </div>
 
-        <h1>Countdown Timer</h1>
-        <p>{String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}</p>
+        <h1 className='Timer'>{String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}</h1>
+
         {!timerIsRunning ? (
           <CustomButton name="Start" onClick={startTimerClick} />
         ) : (
