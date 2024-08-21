@@ -1,0 +1,21 @@
+.TaskItem{
+  display: flex;
+  background-color: yellow;
+  /* width: 100%; */
+  padding: 0.5rem;
+}
+
+.TaskCheckbox{
+  width: 10%;
+}
+
+.TaskText{
+  width: 70%;
+  text-align: left;
+  overflow: hidden;
+}
+
+.RemoveTaskButton{
+  width: 20%;
+
+}

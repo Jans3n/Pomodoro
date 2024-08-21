@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import CustomButton from '../UI/CustomButton';
 import TaskItem from './TaskItem';
+import TaskHeader from './TaskHeader';
+import './TaskList.css'
 
 function Tasks() {
 
@@ -49,8 +51,9 @@ function Tasks() {
 
   return (
     <>
-      <div>
-        <h1 className="title">Tasks</h1>
+      <div className='TaskContainer'>
+        {/* <h1 className="title">Tasks</h1> */}
+        <TaskHeader />
         <CustomButton name="Add Task" onClick={() => addTask(taskText)}/>
         <input type="text" value={taskText} onChange={(e) => setTaskText(e.target.value)}/>
         <div>

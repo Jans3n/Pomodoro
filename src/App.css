@@ -1,13 +1,27 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-} */
+.BackgroundImage{
+  background-image: url('/src/assets/images/northernlight3.jpg');
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+  object-fit: cover;
+  object-position: center;
+  z-index: -1;
+  width: 100vw; 
+  height: 100vh; 
+  background-repeat: no-repeat;
+}
 
 .AppContainer{
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
