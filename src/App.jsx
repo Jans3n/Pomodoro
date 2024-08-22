@@ -7,6 +7,7 @@ import './App.css'
 function App() {
   return (
     <>
+    <div className='Pomodoro'>
       <div className='BackgroundImage'></div>
       <div className='Top'></div>
       <div className='AppContainer'>
@@ -14,6 +15,8 @@ function App() {
         {/* <TaskList /> */}
       </div>
       <div className='Bottom'></div>
+    </div>
+      
       
     </>
   )

@@ -1,5 +1,10 @@
+.Pomodoro{
+  display: flex;
+  height: 100vh;
+}
+
 .BackgroundImage{
-  background-image: url('/src/assets/images/northernlight3.jpg');
+  background-image: url('/src/assets/images/seoul.jpg');
   position: fixed;
   top: 0;
   right: 0;
