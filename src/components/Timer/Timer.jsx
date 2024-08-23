@@ -65,6 +65,11 @@ function Timer() {
     setTimerIsRunning(false);
   }
 
+  const restartTimerClick = () => {
+    setTimerIsRunning(false)
+    setTime(modeDurationsInSeconds[currentTimerMode])
+  }
+
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
 
@@ -88,7 +93,7 @@ function Timer() {
 
         <IconButton 
           icon={<RestartIcon/>}
-          // onClick={} 
+          onClick={restartTimerClick} 
           />
 
         <IconButton 
