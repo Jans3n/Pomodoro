@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import CustomButton from '../UI/CustomButton';
 import TimerButton from '../UI/TimerModeButton';
 import './Timer.css'
+import IconButton from '../UI/IconButton';
+import SettingsIcon from '../icons/Settingsicon';
+import RestartIcon from '../icons/RestartIcon';
 
 const TimerModes = {
   POMODORO: 'pomodoro',
@@ -68,19 +71,32 @@ function Timer() {
   return (
     <>
       <div className='TimerContainer'>
-        <div className='TimerButtons'>
+        <div className='TimerModes'>
           <TimerButton label="pomodoro" onClick={() => changeTimerMode(TimerModes.POMODORO)} active={currentTimerMode == TimerModes.POMODORO}/>
           <TimerButton label="short break" onClick={() => changeTimerMode(TimerModes.SHORT_BREAK)} active={currentTimerMode == TimerModes.SHORT_BREAK}/>
           <TimerButton label="long break" onClick={() => changeTimerMode(TimerModes.LONG_BREAK)} active={currentTimerMode == TimerModes.LONG_BREAK}/>
         </div>
 
-        <h1 className='Timer'>{String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}</h1>
+        <div className='Timer'>{String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}</div>
 
-        {!timerIsRunning ? (
-          <CustomButton name="Start" onClick={startTimerClick} />
+        <div className='TimerButtons'>
+          {!timerIsRunning ? (
+          <CustomButton name="start" onClick={startTimerClick} />
         ) : (
-          <CustomButton name="Pause" onClick={pauseTimerClick} />
+          <CustomButton name="pause" onClick={pauseTimerClick} />
         )}
+
+        <IconButton 
+          icon={<RestartIcon/>}
+          // onClick={} 
+          />
+
+        <IconButton 
+          icon={<SettingsIcon/>}
+          // onClick={} 
+          />
+        </div>
+        
       </div>
     </>
   )
