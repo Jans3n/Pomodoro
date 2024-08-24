@@ -1,15 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SettingsIcon from '../icons/Settingsicon'
 import './IconButton.css'
 
-function IconButton({icon, onClick}) {
+function IconButton({icon, onClick, shouldSpin}) {
+  const [isSpinning, setIsSpinning] = useState(false);
+
+  const handleClick = () => {
+    setIsSpinning(true); 
+    onClick();
+
+    setTimeout(() => {
+      setIsSpinning(false);
+    }, 1200); 
+  };
+
   return (
     <>
-      {/* <div> */}
-        <button onClick={onClick} className='IconButton'>
+      {shouldSpin ? 
+        <button onClick={handleClick} className={`IconButton ${isSpinning ? 'spin' : ''}`}>
           {icon}
         </button>
-      {/* </div> */}
+        :
+        <button onClick={handleClick} className='IconButton'>
+          {icon}
+        </button>
+      }
+        
+      
     </>
   )
 }

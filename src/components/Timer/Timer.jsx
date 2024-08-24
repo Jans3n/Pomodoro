@@ -94,11 +94,13 @@ function Timer() {
         <IconButton 
           icon={<RestartIcon/>}
           onClick={restartTimerClick} 
+          shouldSpin={true}
           />
 
         <IconButton 
           icon={<SettingsIcon/>}
-          // onClick={} 
+          onClick={() => alert("settings clicked")} 
+          shouldSpin={false}
           />
         </div>
         
