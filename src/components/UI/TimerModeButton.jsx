@@ -7,11 +7,9 @@ function TimerButton({label, onClick, active}) {
 
   return (
     <>
-      <div>
         <button className={buttonClassName} onClick={onClick}>
           {label}
         </button>
-      </div>
     </>
   )
 }
