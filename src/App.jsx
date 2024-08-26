@@ -11,8 +11,12 @@ function App() {
       <div className='BackgroundImage'></div>
       <div className='Top'></div>
       <div className='AppContainer'>
-        <Timer />
-        {/* <TaskList /> */}
+        <div className='Timer'>
+          <Timer />
+        </div>
+        <div className='TaskList'>
+          <TaskList />
+        </div>
       </div>
       <div className='Bottom'></div>
     </div>
