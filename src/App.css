@@ -32,15 +32,20 @@
 }
 
 .Timer{
-  /* grid-area: main; */
   text-align: center;
   z-index: 2;
+  height: auto;
 }
 
 .TaskList{
-  /* grid-area: task; */
   position: absolute;
   left: 100%; /* Position it to the right of the Timer */
   margin-left: 2rem; /* Space between the timer and task list */
   z-index: 2;
+  width: 85%;
+  height: 100%;
+  min-height: 450px;
+
+  /* min-width: 300px;
+  min-height: 1px; */
 }

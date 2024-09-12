@@ -3,6 +3,7 @@ import CustomButton from '../UI/CustomButton';
 import TaskItem from './TaskItem';
 import TaskHeader from './TaskHeader';
 import './TaskList.css'
+import TaskInputField from '../UI/TaskInputField';
 
 function Tasks() {
 
@@ -54,9 +55,12 @@ function Tasks() {
       <div className='TaskContainer'>
         {/* <h1 className="title">Tasks</h1> */}
         <TaskHeader />
-        <CustomButton name="Add Task" onClick={() => addTask(taskText)}/>
-        <input type="text" value={taskText} onChange={(e) => setTaskText(e.target.value)}/>
-        <div>
+        <TaskInputField
+          name={'Add Task'}
+          />
+        {/* <CustomButton name="Add Task" onClick={() => addTask(taskText)}/>
+        <input type="text" value={taskText} onChange={(e) => setTaskText(e.target.value)}/> */}
+        {/* <div> */}
           {tasks.map(task => (
             <TaskItem 
               key={task.id}
@@ -66,7 +70,7 @@ function Tasks() {
             />
           ))}
         </div>
-      </div>
+      {/* </div> */}
     </>
   )
 

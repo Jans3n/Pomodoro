@@ -1,5 +1,6 @@
 .TaskContainer{
-  margin: auto;
-  /* max-width: 500px; */
-  background-color: blue;
+  /* margin: auto; */
+  background-color: white;
+  height: 100%;
+  border-radius: 20px;
 }
