@@ -1,5 +1,4 @@
 import React from 'react'
-import './SettingsIcon.css'
 
 function SettingsIcon({props}) {
   return (
@@ -17,3 +16,5 @@ function SettingsIcon({props}) {
   )
 }
 export default SettingsIcon
+
+// reactsvgicons.com

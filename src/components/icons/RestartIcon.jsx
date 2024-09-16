@@ -1,5 +1,4 @@
 import React from 'react'
-import './SettingsIcon.css'
 
 function RestartIcon({props}) {
   return (

@@ -54,7 +54,7 @@ function Tasks() {
     <>
       <div className='TaskContainer'>
         {/* <h1 className="title">Tasks</h1> */}
-        <TaskHeader />
+        {/* <TaskHeader /> */}
         <TaskInputField
           name={'Add Task'}
           />
