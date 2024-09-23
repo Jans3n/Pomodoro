@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './TaskInputField.css'
 import AddIcon from '../icons/AddIcon';
+import TaskMenu from './TaskMenu';
 
 function TaskInputField({name, onClick}) {
 
@@ -21,11 +22,12 @@ function TaskInputField({name, onClick}) {
         <button onClick={onClick} className='inputButton'>{name}</button> */}
         {
           openedTaskMenu ? (
-          <input 
-            type="text" 
-            value={taskText} 
-            onChange={(e) => setTaskText(e.target.value)}
-            className='inputField'/>
+          // <input 
+          //   type="text" 
+          //   value={taskText} 
+          //   onChange={(e) => setTaskText(e.target.value)}
+          //   className='inputField'/>
+            <TaskMenu />
           ) : (
             <button 
               onClick={handleTaskMenu} 

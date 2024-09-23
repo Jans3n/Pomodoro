@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import SettingsIcon from '../icons/Settingsicon'
 import './IconButton.css'
 
-function IconButton({icon, onClick, shouldSpin}) {
+function IconButton({icon, onClick, shouldSpin, style}) {
   const [isSpinning, setIsSpinning] = useState(false);
 
   const handleClick = () => {
@@ -21,7 +21,7 @@ function IconButton({icon, onClick, shouldSpin}) {
           {icon}
         </button>
         :
-        <button onClick={handleClick} className='IconButton'>
+        <button onClick={handleClick} className='IconButton' style={style}>
           {icon}
         </button>
       }

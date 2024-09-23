@@ -39,7 +39,6 @@
 
 .addTaskButton{
   font-family: 'Space Grotesk';
-  box-sizing: border-box;
   width: 100%;
   height: 64px;
   background-color: rgba(0, 0, 0, 0.1);
