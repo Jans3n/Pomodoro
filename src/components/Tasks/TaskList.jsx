@@ -9,22 +9,16 @@ function Tasks() {
 
   const [taskText, setTaskText] = useState('');
   const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      text: "This is the first Task",
-      completed: false,
-    },
-    {
-      id: 2,
-      text: "This is the second Task",
-      completed: true,
-    }
+    { id: 1, text: "This is the first Task", pomodoros: 1, completed: false },
+    { id: 2, text: "This is the second Task", pomodoros: 2, completed: true },
+    { id: 3, text: "This is the third Task", pomodoros: 4, completed: false }
   ])
   
-  const addTask = (text) => {
+  const addTask = (text, pomodoros) => {
     const newTask = {
       id: Date.now(),
       text: text,
+      pomodoros,
       completed: false
     };
     setTasks([...tasks, newTask])
@@ -53,11 +47,8 @@ function Tasks() {
   return (
     <>
       <div className='TaskContainer'>
-        {/* <h1 className="title">Tasks</h1> */}
-        {/* <TaskHeader /> */}
-        <TaskInputField
-          name={'Add Task'}
-          />
+        <TaskInputField 
+          addTask = {addTask}/>
         {/* <CustomButton name="Add Task" onClick={() => addTask(taskText)}/>
         <input type="text" value={taskText} onChange={(e) => setTaskText(e.target.value)}/> */}
         {/* <div> */}

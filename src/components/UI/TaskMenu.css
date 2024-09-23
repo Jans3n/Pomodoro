@@ -9,7 +9,7 @@
   animation: 0.1s ease-in-out 0s 1 normal none running expand;
   display: flex;
   flex-direction: column;
-  /* padding: 20px; */
+  
 }
 
 .TaskInformation{

@@ -3,7 +3,7 @@ import './TaskInputField.css'
 import AddIcon from '../icons/AddIcon';
 import TaskMenu from './TaskMenu';
 
-function TaskInputField({name, onClick}) {
+function TaskInputField({addTask}) {
 
   const [taskText, setTaskText] = useState('');
   const [openedTaskMenu, setOpenedTaskMenu] = useState(false)
@@ -14,20 +14,9 @@ function TaskInputField({name, onClick}) {
 
   return (
     <>
-        {/* <input 
-          type="text" 
-          value={taskText} 
-          onChange={(e) => setTaskText(e.target.value)}
-          className='inputField'/>
-        <button onClick={onClick} className='inputButton'>{name}</button> */}
         {
           openedTaskMenu ? (
-          // <input 
-          //   type="text" 
-          //   value={taskText} 
-          //   onChange={(e) => setTaskText(e.target.value)}
-          //   className='inputField'/>
-            <TaskMenu />
+            <TaskMenu onClose={handleTaskMenu} addTask={addTask}/>
           ) : (
             <button 
               onClick={handleTaskMenu} 

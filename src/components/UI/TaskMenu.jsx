@@ -5,15 +5,27 @@ import ArrowUpIcon from '../icons/ArrowUpIcon'
 import ArrowDownIcon from '../icons/ArrowDownIcon';
 import CustomButton from './CustomButton';
 
-function TaskMenu({name, onClick}) {
+function TaskMenu({onClose, addTask}) {
 
   const [taskText, setTaskText] = useState('');
-  const [pomodoroInputValue, setPomodoroInputValue] = useState('')
+  const [pomodoroInputValue, setPomodoroInputValue] = useState(1)
+
+  const handleSaveTask = () => {
+    // Logic to save the task goes here
+    console.log('Task saved:', taskText, pomodoroInputValue);
+    addTask(taskText, pomodoroInputValue)
+    onClose(); 
+  };
+
+  const handleCancelTask = () => {
+    setTaskText('');
+    setPomodoroInputValue(1);
+    onClose();
+  };
 
   const handlePomodoroInputChange = (e) => {
     const inputValue = e.target.value;
-
-    if (/^\d{0,2}$/.test(inputValue) && (inputValue === '' || parseInt(inputValue) <= 24)) {
+    if (/^\d{0,2}$/.test(inputValue) && (inputValue === '' || parseInt(inputValue) <= 24 && parseInt(inputValue) >= 1)) {
       setPomodoroInputValue(inputValue);
     }
   };
@@ -23,6 +35,25 @@ function TaskMenu({name, onClick}) {
       e.preventDefault();
     }
   };
+
+  const incrementPomodoroValue = () => {
+    const currentValue = Number(pomodoroInputValue);
+    if (currentValue < 24){
+      setPomodoroInputValue(currentValue + 1)
+    }
+  }
+
+  const decrementPomodoroValue = () => {
+    const currentValue = Number(pomodoroInputValue);
+    if (currentValue > 0){
+      setPomodoroInputValue(currentValue - 1)
+    }
+  }
+
+  const test = () => {
+    console.log(pomodoroInputValue)
+    console.log(Number(pomodoroInputValue))
+  }
 
   const buttonStyle = {
     textAlign: 'center',
@@ -52,21 +83,21 @@ function TaskMenu({name, onClick}) {
           <div className='PomodorosRequiredContainer'>
             <p>Estimated Pomodoros</p>
             <div className='PomodoroCounter'>
-              <input type="number" min="0" step="1" max="100" 
+              <input type="number" min="1" step="1" max="100" 
                 onKeyDown={handleKeyDown} 
-                onChange={handlePomodoroInputChange} 
+                onChange={handlePomodoroInputChange}
                 value={pomodoroInputValue} 
                 className='EstimatedPomodorosInput'/>
               <div className='EstimatedPomodorosButtons'>
                 <IconButton 
                 icon={<ArrowUpIcon/>}
-                onClick={() => alert("settings clicked")} 
+                onClick={() => incrementPomodoroValue()} 
                 shouldSpin={false} 
                 style={buttonStyle}
               />
               <IconButton 
                 icon={<ArrowDownIcon/>}
-                onClick={() => alert("settings clicked")} 
+                onClick={() => decrementPomodoroValue()} 
                 shouldSpin={false} 
                 style={buttonStyle}
               />
@@ -76,8 +107,8 @@ function TaskMenu({name, onClick}) {
           </div>
         </div>
         <div className='TaskButtons'>
-          <button className='CancelTaskButton'>Cancel</button>
-          <button className='SaveTaskButton'>Save</button>
+          <button className='CancelTaskButton' onClick={handleCancelTask}>Cancel</button>
+          <button className='SaveTaskButton' onClick={handleSaveTask}>Save</button>
         </div>
       </div>
     </>
