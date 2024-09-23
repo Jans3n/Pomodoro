@@ -3,6 +3,7 @@ import './TaskMenu.css'
 import IconButton from './IconButton';
 import ArrowUpIcon from '../icons/ArrowUpIcon'
 import ArrowDownIcon from '../icons/ArrowDownIcon';
+import CustomButton from './CustomButton';
 
 function TaskMenu({name, onClick}) {
 
@@ -43,9 +44,7 @@ function TaskMenu({name, onClick}) {
       <div className='TaskMenuContainer'>
         <div className='TaskInformation'>
           <div className='TaskInput'>
-            <input 
-            type="text" 
-            value={taskText} 
+            <input type="text" value={taskText} 
             onChange={(e) => setTaskText(e.target.value)}
             placeholder='What do you have planned?'
             className='inputField'/>
@@ -53,7 +52,11 @@ function TaskMenu({name, onClick}) {
           <div className='PomodorosRequiredContainer'>
             <p>Estimated Pomodoros</p>
             <div className='PomodoroCounter'>
-              <input type="number" min="0" step="1" max="100" onKeyDown={handleKeyDown} onChange={handlePomodoroInputChange} value={pomodoroInputValue} className='EstimatedPomodorosInput'/>
+              <input type="number" min="0" step="1" max="100" 
+                onKeyDown={handleKeyDown} 
+                onChange={handlePomodoroInputChange} 
+                value={pomodoroInputValue} 
+                className='EstimatedPomodorosInput'/>
               <div className='EstimatedPomodorosButtons'>
                 <IconButton 
                 icon={<ArrowUpIcon/>}
@@ -73,9 +76,8 @@ function TaskMenu({name, onClick}) {
           </div>
         </div>
         <div className='TaskButtons'>
-        
-          <button>Cancel</button>
-          <button>Save</button>
+          <button className='CancelTaskButton'>Cancel</button>
+          <button className='SaveTaskButton'>Save</button>
         </div>
       </div>
     </>
