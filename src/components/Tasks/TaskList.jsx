@@ -48,20 +48,20 @@ function Tasks() {
     <>
       <div className='TaskContainer'>
         <TaskInputField 
-          addTask = {addTask}/>
-        {/* <CustomButton name="Add Task" onClick={() => addTask(taskText)}/>
-        <input type="text" value={taskText} onChange={(e) => setTaskText(e.target.value)}/> */}
-        {/* <div> */}
+          addTask = {addTask}
+        />
+        <div className='TaskItemsContainer'>
           {tasks.map(task => (
-            <TaskItem 
-              key={task.id}
-              task={task}
-              deleteTask={deleteTask}
-              toggleCompleted={toggleCompleted}
-            />
-          ))}
+          <TaskItem 
+            key={task.id}
+            task={task}
+            deleteTask={deleteTask}
+            toggleCompleted={toggleCompleted}
+          />
+        ))}
         </div>
-      {/* </div> */}
+        
+      </div>
     </>
   )
 

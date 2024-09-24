@@ -14,6 +14,7 @@ function TaskInputField({addTask}) {
 
   return (
     <>
+      <div className='ModifyTaskContainer'>
         {
           openedTaskMenu ? (
             <TaskMenu onClose={handleTaskMenu} addTask={addTask}/>
@@ -24,6 +25,8 @@ function TaskInputField({addTask}) {
             </button>
           )
         }
+      </div>
+        
 
 
     </>

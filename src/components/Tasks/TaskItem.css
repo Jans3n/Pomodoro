@@ -1,21 +1,41 @@
 .TaskItem{
   display: flex;
-  background-color: yellow;
+  background-color: white;
   /* width: 100%; */
   padding: 0.5rem;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  border-radius: 8px;
 }
 
-.TaskCheckbox{
-  /* width: 10%; */
+.LeftSideTask{
+  display: flex;
+  width: 75%;
+  align-items: center;
+}
+
+.RightSideTask{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .TaskText{
-  width: 70%;
-  text-align: left;
   overflow: hidden;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 85%;
+  word-break: break-word;
+  cursor: default;
 }
 
-.RemoveTaskButton{
-  /* width: 20%; */
+.Pomodoros{
+  display: flex;
+  align-items: center;
+  cursor: default;
+}
 
+.EditButton{
+  color: yellow;
 }

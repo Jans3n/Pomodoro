@@ -11,10 +11,13 @@ function TaskMenu({onClose, addTask}) {
   const [pomodoroInputValue, setPomodoroInputValue] = useState(1)
 
   const handleSaveTask = () => {
-    // Logic to save the task goes here
-    console.log('Task saved:', taskText, pomodoroInputValue);
-    addTask(taskText, pomodoroInputValue)
-    onClose(); 
+    // TODO Handle user experience (toast)
+    if (taskText != '' && Number(pomodoroInputValue) != 0){
+      console.log('Task saved:', taskText, pomodoroInputValue);
+      addTask(taskText, pomodoroInputValue)
+      onClose();
+    }
+     
   };
 
   const handleCancelTask = () => {
@@ -50,11 +53,6 @@ function TaskMenu({onClose, addTask}) {
     }
   }
 
-  const test = () => {
-    console.log(pomodoroInputValue)
-    console.log(Number(pomodoroInputValue))
-  }
-
   const buttonStyle = {
     textAlign: 'center',
     borderRadius: '4px',
@@ -78,7 +76,8 @@ function TaskMenu({onClose, addTask}) {
             <input type="text" value={taskText} 
             onChange={(e) => setTaskText(e.target.value)}
             placeholder='What do you have planned?'
-            className='inputField'/>
+            className='inputField'
+            maxLength={50}/>
           </div>
           <div className='PomodorosRequiredContainer'>
             <p>Estimated Pomodoros</p>

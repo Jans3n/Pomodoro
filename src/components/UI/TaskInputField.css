@@ -1,41 +1,6 @@
-/* .inputField{
-  font-family: 'Space Grotesk';
-  border-radius: 20px 0px 0px 20px;
-  width: 60%;
-  padding: 0.3rem 0.8rem;
-  margin: 0px;
-  box-shadow: none;
-  border: 1px solid #FFFFFF;
-  font-size: 20px;
-  font-weight: 500;
-  border-right: 0px;
-  background: none;
-  color: white;
+.ModifyTaskContainer{
+  padding-bottom: 1rem;
 }
-
-
-.inputField:focus{
-  outline: none;
-}
-
-.inputButton{
-  font-family: 'Space Grotesk';
-  border-radius: 0px 20px 20px 0px;
-  padding: 0.3rem 0.8rem;
-  font-size: 20px;
-  font-weight: 500;
-  background: none;
-  border-left: 0px;
-  border: 1px solid #FFFFFF;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.inputButton:hover, .inputButton.active{
-  color: black;
-  background-color: white;
-} */
 
 .addTaskButton{
   font-family: 'Space Grotesk';

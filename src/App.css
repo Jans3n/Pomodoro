@@ -42,7 +42,7 @@
   left: 100%; /* Position it to the right of the Timer */
   margin-left: 4rem; /* Space between the timer and task list */
   z-index: 2;
-  width: 85%;
+  width: 95%;
   height: 100%;
   min-height: 400px;
 
