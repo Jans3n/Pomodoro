@@ -35,8 +35,13 @@ function Tasks() {
     }))
   }
 
-  const editTask = (id) => {
-    
+  const editTask = (id, newText, newPomodoros) => {
+    setTasks(tasks.map(task => {
+      if (task.id === id) {
+        return { ...task, text: newText, pomodoros: newPomodoros };
+      }
+      return task;
+    }));
   }
 
   const deleteTask = (id) => {
@@ -55,6 +60,7 @@ function Tasks() {
           <TaskItem 
             key={task.id}
             task={task}
+            editTask={editTask}
             deleteTask={deleteTask}
             toggleCompleted={toggleCompleted}
           />

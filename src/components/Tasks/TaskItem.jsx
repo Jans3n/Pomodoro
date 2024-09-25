@@ -5,18 +5,60 @@ import IconButton from '../UI/IconButton';
 import CheckFullIcon from '../icons/CheckFullIcon';
 import CheckIcon from '../icons/CheckIcon';
 import EditIcon from '../icons/EditIcon';
+import ArrowUpIcon from '../icons/ArrowUpIcon';
+import ArrowDownIcon from '../icons/ArrowDownIcon';
 
 function TaskItem({task, toggleCompleted, editTask, deleteTask}) {
 
   const [PomodorosPassed, setPomodorosPassed] = useState(0)
+  const [EditMenuOpen, setEditMenuOpen] = useState(false)
+  const [TaskText, setTaskText] = useState(task.text)
+  const [TaskPomodoros, setTaskPomodoros] = useState(task.pomodoros)
 
+  const toggleEditMenu = () => {
+    setEditMenuOpen(!EditMenuOpen)
+  }
 
   const handleCompletedTaskChange = () => {
     toggleCompleted(task.id)
   }
 
-  const handleOpenTaskMenu = () => {
+  const handleSaveTask = () => {
+    editTask(task.id, TaskText, TaskPomodoros)
+    toggleEditMenu()
+  }
 
+  const handleCancelEditTask = () => {
+    setTaskText(task.text)
+    setTaskPomodoros(task.pomodoros)
+    toggleEditMenu()
+  }
+
+  const handlePomodoroInputChange = (e) => {
+    const inputValue = e.target.value;
+    if (/^\d{0,2}$/.test(inputValue) && (inputValue === '' || parseInt(inputValue) <= 24 && parseInt(inputValue) >= 1)) {
+      setTaskPomodoros(inputValue);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (['-', '.', ',', '+'].includes(e.key)) {
+      e.preventDefault();
+    }
+  };
+
+  const incrementPomodoroValue = () => {
+    const currentValue = Number(TaskPomodoros);
+    if (currentValue < 24){
+      setTaskPomodoros(currentValue + 1)
+    }
+  }
+
+  const decrementPomodoroValue = () => {
+    const currentValue = Number(TaskPomodoros);
+    if (currentValue > 0){
+      setTaskPomodoros(currentValue - 1)
+    }
   }
 
   const buttonStyle = {
@@ -25,38 +67,97 @@ function TaskItem({task, toggleCompleted, editTask, deleteTask}) {
     color: 'rgb(85, 85, 85)',
   }
 
+  const editButtonStyle = {
+    textAlign: 'center',
+    borderRadius: '4px',
+    opacity: '0.9',
+    fontSize: '14px',
+    padding: '8px 12px',
+    minWidth: '0px',
+    width: '40px',
+    backgroundColor: 'white',
+    color: 'rgb(85, 85, 85)',
+    border: '1px solid rgb(223, 223, 223)',
+    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 2px',
+    height: '100%',
+  }
+
 
   return(
     <>
-      <div className='TaskItem'>
-        <div className='LeftSideTask'>
-          {task.completed 
-          ? <IconButton
-            icon={<CheckFullIcon/>}
-            onClick={() => handleCompletedTaskChange()} 
-            shouldSpin={false} 
-            style={buttonStyle}/>
+      <div className={`TaskItem ${EditMenuOpen ? 'open' : ''}`}>
+        {
+          EditMenuOpen 
+          ? 
+            <div>
+              <div className='TaskInformation'>
+                <div className='TaskInput'>
+                  <input type="text" value={TaskText} 
+                  onChange={(e) => setTaskText(e.target.value)}
+                  placeholder='What do you have planned?'
+                  className='editInputField'
+                  maxLength={50}/>
+                </div>
+                <div className='PomodorosRequiredContainer'>
+                  <p>Estimated Pomodoros</p>
+                  <div className='PomodoroCounter'>
+                    <input type="number" min="1" step="1" max="100" 
+                      onKeyDown={handleKeyDown} 
+                      onChange={handlePomodoroInputChange}
+                      value={TaskPomodoros} 
+                      className='EstimatedPomodorosInput'/>
+                    <div className='EstimatedPomodorosButtons'>
+                      <IconButton 
+                      icon={<ArrowUpIcon/>}
+                      onClick={() => incrementPomodoroValue()} 
+                      shouldSpin={false} 
+                      style={editButtonStyle}
+                      />
+                      <IconButton 
+                        icon={<ArrowDownIcon/>}
+                        onClick={() => decrementPomodoroValue()} 
+                        shouldSpin={false} 
+                        style={editButtonStyle}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='TaskButtons'>
+                <button className='CancelTaskButton' onClick={handleCancelEditTask}>Cancel</button>
+                <button className='SaveTaskButton' onClick={handleSaveTask}>Save</button>
+              </div>
+            </div>
           :
-            <IconButton
-            icon={<CheckIcon/>}
-            onClick={() => handleCompletedTaskChange()} 
-            shouldSpin={false} 
-            style={buttonStyle}/>
-          }
-          
-          
-          <div className='TaskText' style={task.completed ? {textDecoration: 'line-through', color: 'rgb(85, 85, 85)'} : {}}>
-            {task.text}
-          </div>
-        </div>
-        <div className='RightSideTask'>
-          <div className='Pomodoros'>{PomodorosPassed}/{task.pomodoros}</div>
-          <IconButton
-            icon={<EditIcon/>}
-            onClick={() => handleOpenTaskMenu()} 
-            shouldSpin={false} 
-            style={buttonStyle}/>
-        </div>
+            <>
+              <div className='LeftSideTask'>
+                {task.completed 
+                ? <IconButton
+                  icon={<CheckFullIcon/>}
+                  onClick={() => handleCompletedTaskChange()} 
+                  shouldSpin={false} 
+                  style={buttonStyle}/>
+                :
+                  <IconButton
+                  icon={<CheckIcon/>}
+                  onClick={() => handleCompletedTaskChange()} 
+                  shouldSpin={false} 
+                  style={buttonStyle}/>
+                }
+                <div className='TaskText' style={task.completed ? {textDecoration: 'line-through', color: 'rgb(85, 85, 85)'} : {}}>
+                  {task.text}
+                </div>
+              </div>
+              <div className='RightSideTask'>
+                <div className='Pomodoros'>{PomodorosPassed}/{TaskPomodoros}</div>
+                <IconButton
+                  icon={<EditIcon/>}
+                  onClick={() => toggleEditMenu()} 
+                  shouldSpin={false} 
+                  style={buttonStyle}/>
+              </div>
+            </>
+        }
       </div>
         
     </>
