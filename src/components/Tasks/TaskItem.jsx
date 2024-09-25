@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import CustomButton from '../UI/CustomButton';
 import './TaskItem.css'
 import IconButton from '../UI/IconButton';
+import CheckFullIcon from '../icons/CheckFullIcon';
 import CheckIcon from '../icons/CheckIcon';
 import EditIcon from '../icons/EditIcon';
 
 function TaskItem({task, toggleCompleted, editTask, deleteTask}) {
 
   const [PomodorosPassed, setPomodorosPassed] = useState(0)
+
 
   const handleCompletedTaskChange = () => {
     toggleCompleted(task.id)
@@ -28,12 +30,22 @@ function TaskItem({task, toggleCompleted, editTask, deleteTask}) {
     <>
       <div className='TaskItem'>
         <div className='LeftSideTask'>
-          <IconButton
+          {task.completed 
+          ? <IconButton
+            icon={<CheckFullIcon/>}
+            onClick={() => handleCompletedTaskChange()} 
+            shouldSpin={false} 
+            style={buttonStyle}/>
+          :
+            <IconButton
             icon={<CheckIcon/>}
             onClick={() => handleCompletedTaskChange()} 
             shouldSpin={false} 
             style={buttonStyle}/>
-          <div className='TaskText'>
+          }
+          
+          
+          <div className='TaskText' style={task.completed ? {textDecoration: 'line-through', color: 'rgb(85, 85, 85)'} : {}}>
             {task.text}
           </div>
         </div>
