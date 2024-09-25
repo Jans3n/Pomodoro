@@ -3,7 +3,6 @@ import './TaskMenu.css'
 import IconButton from './IconButton';
 import ArrowUpIcon from '../icons/ArrowUpIcon'
 import ArrowDownIcon from '../icons/ArrowDownIcon';
-import CustomButton from './CustomButton';
 
 function TaskMenu({onClose, addTask}) {
 
@@ -11,13 +10,12 @@ function TaskMenu({onClose, addTask}) {
   const [pomodoroInputValue, setPomodoroInputValue] = useState(1)
 
   const handleSaveTask = () => {
-    // TODO Handle user experience (toast)
+    // TODO Add error handling (toast)
     if (taskText != '' && Number(pomodoroInputValue) != 0){
       console.log('Task saved:', taskText, pomodoroInputValue);
       addTask(taskText, pomodoroInputValue)
       onClose();
     }
-     
   };
 
   const handleCancelTask = () => {

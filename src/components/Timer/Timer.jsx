@@ -12,7 +12,9 @@ const TimerModes = {
   LONG_BREAK: 'longBreak',
 };
 
+// TODO automatically change to short break or long break after timer hits 0
 const modeDurationsInSeconds = {
+  // [TimerModes.POMODORO]: 0.1 * 60,
   [TimerModes.POMODORO]: 25 * 60,
   [TimerModes.SHORT_BREAK]: 5 * 60,
   [TimerModes.LONG_BREAK]: 15 * 60,

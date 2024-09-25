@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import CustomButton from '../UI/CustomButton';
 import './TaskItem.css'
 import IconButton from '../UI/IconButton';
 import CheckFullIcon from '../icons/CheckFullIcon';
@@ -8,16 +7,11 @@ import EditIcon from '../icons/EditIcon';
 import ArrowUpIcon from '../icons/ArrowUpIcon';
 import ArrowDownIcon from '../icons/ArrowDownIcon';
 
-function TaskItem({task, toggleCompleted, editTask, deleteTask}) {
+function TaskItem({task, toggleCompleted, editTask, deleteTask, isTaskItemOpen, handleTaskItemToggle}) {
 
   const [PomodorosPassed, setPomodorosPassed] = useState(0)
-  const [EditMenuOpen, setEditMenuOpen] = useState(false)
   const [TaskText, setTaskText] = useState(task.text)
   const [TaskPomodoros, setTaskPomodoros] = useState(task.pomodoros)
-
-  const toggleEditMenu = () => {
-    setEditMenuOpen(!EditMenuOpen)
-  }
 
   const handleCompletedTaskChange = () => {
     toggleCompleted(task.id)
@@ -25,13 +19,13 @@ function TaskItem({task, toggleCompleted, editTask, deleteTask}) {
 
   const handleSaveTask = () => {
     editTask(task.id, TaskText, TaskPomodoros)
-    toggleEditMenu()
+    handleTaskItemToggle()
   }
 
   const handleCancelEditTask = () => {
     setTaskText(task.text)
     setTaskPomodoros(task.pomodoros)
-    toggleEditMenu()
+    handleTaskItemToggle()
   }
 
   const handlePomodoroInputChange = (e) => {
@@ -85,9 +79,9 @@ function TaskItem({task, toggleCompleted, editTask, deleteTask}) {
 
   return(
     <>
-      <div className={`TaskItem ${EditMenuOpen ? 'open' : ''}`}>
+      <div className={`TaskItem ${isTaskItemOpen ? 'open' : ''}`}>
         {
-          EditMenuOpen 
+          isTaskItemOpen
           ? 
             <div>
               <div className='TaskInformation'>
@@ -152,7 +146,7 @@ function TaskItem({task, toggleCompleted, editTask, deleteTask}) {
                 <div className='Pomodoros'>{PomodorosPassed}/{TaskPomodoros}</div>
                 <IconButton
                   icon={<EditIcon/>}
-                  onClick={() => toggleEditMenu()} 
+                  onClick={() => handleTaskItemToggle()} 
                   shouldSpin={false} 
                   style={buttonStyle}/>
               </div>

@@ -3,7 +3,7 @@ import './TaskInputField.css'
 import AddIcon from '../icons/AddIcon';
 import TaskMenu from './TaskMenu';
 
-function TaskInputField({addTask}) {
+function TaskInputField({addTask, handleTaskMenuToggle, isTaskMenuOpen}) {
 
   const [taskText, setTaskText] = useState('');
   const [openedTaskMenu, setOpenedTaskMenu] = useState(false)
@@ -16,11 +16,11 @@ function TaskInputField({addTask}) {
     <>
       <div className='ModifyTaskContainer'>
         {
-          openedTaskMenu ? (
-            <TaskMenu onClose={handleTaskMenu} addTask={addTask}/>
+          isTaskMenuOpen ? (
+            <TaskMenu onClose={handleTaskMenuToggle} addTask={addTask}/>
           ) : (
             <button 
-              onClick={handleTaskMenu} 
+              onClick={handleTaskMenuToggle} 
               className='addTaskButton'> <AddIcon></AddIcon> Add Task
             </button>
           )
