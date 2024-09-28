@@ -14,10 +14,12 @@ const TimerModes = {
 
 // TODO automatically change to short break or long break after timer hits 0
 const modeDurationsInSeconds = {
-  // [TimerModes.POMODORO]: 0.1 * 60,
-  [TimerModes.POMODORO]: 25 * 60,
-  [TimerModes.SHORT_BREAK]: 5 * 60,
-  [TimerModes.LONG_BREAK]: 15 * 60,
+  [TimerModes.POMODORO]: 1,
+  [TimerModes.SHORT_BREAK]: 1,
+  [TimerModes.LONG_BREAK]: 1,
+  // [TimerModes.POMODORO]: 25 * 60,
+  // [TimerModes.SHORT_BREAK]: 5 * 60,
+  // [TimerModes.LONG_BREAK]: 15 * 60,
 };
 
 function Timer() {
@@ -25,37 +27,61 @@ function Timer() {
   const [time, setTime] = useState(modeDurationsInSeconds[TimerModes.POMODORO]);
   const [timerIsRunning, setTimerIsRunning] = useState(false);
   const [currentTimerMode, setCurrentTimerMode] = useState(TimerModes.POMODORO);
+  const [currentPomodoroCount, setCurrentPomodoroCount] = useState(0);
+  const [hasFinished, setHasFinished] = useState(false);
 
-  useEffect(() => {
-    let interval;
+  // TODO FIX GETTING CALLED TWICE
+useEffect(() => {
+  let interval;
 
-    if (timerIsRunning) {
-      interval = setInterval(() => {
-        setTime(prevTime => {
-          if (prevTime > 0) {
-            return prevTime - 1;
-          } else {
-            clearInterval(interval);
-            setTimerIsRunning(false);
+  if (timerIsRunning && !hasFinished) {
+    interval = setInterval(() => {
+      setTime(prevTime => {
+        if (prevTime > 0) {
+          return prevTime - 1;
+        } else {
+          clearInterval(interval);
+          if (!hasFinished){
+            setHasFinished(true);
+            changeModeOnFinish();
             console.log("Countdown finished!");
-            return 0;
           }
-        })
-      }, 1000)
-    } else {
-      clearInterval(interval)
-    }
+          
+          return 0;
+        }
+      });
+    }, 1000);
+  } 
 
-    // Cleanup interval on unmount
-    return () => clearInterval(interval);
+  // Cleanup interval on unmount or when timer is stopped
+  return () => clearInterval(interval);
+}, [timerIsRunning, hasFinished]);
 
-  }, [timerIsRunning, currentTimerMode])
+
+const changeModeOnFinish = () => {
+  if (currentTimerMode === TimerModes.POMODORO) {
+    setCurrentPomodoroCount(prevCount => {
+      const newCount = prevCount + 1;
+      if (newCount % 4 === 0) {
+        changeTimerMode(TimerModes.LONG_BREAK);
+      } else {
+        changeTimerMode(TimerModes.SHORT_BREAK);
+      }
+      return newCount;
+    });
+  } else if (currentTimerMode === TimerModes.SHORT_BREAK || currentTimerMode === TimerModes.LONG_BREAK) {
+    changeTimerMode(TimerModes.POMODORO);
+  }
+  setHasFinished(false);
+};
+
 
   const changeTimerMode = (newMode) => {
     if (currentTimerMode !== newMode){
       setTimerIsRunning(false);
       setCurrentTimerMode(newMode);
       setTime(modeDurationsInSeconds[newMode])
+      setHasFinished(false);
     }
   }
 
@@ -70,6 +96,7 @@ function Timer() {
   const restartTimerClick = () => {
     setTimerIsRunning(false)
     setTime(modeDurationsInSeconds[currentTimerMode])
+    setHasFinished(false);
   }
 
   const minutes = Math.floor(time / 60);
