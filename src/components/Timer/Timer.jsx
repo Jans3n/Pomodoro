@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import CustomButton from '../UI/CustomButton';
 import TimerButton from '../UI/TimerModeButton';
 import './Timer.css'
@@ -28,75 +28,53 @@ function Timer() {
   const [timerIsRunning, setTimerIsRunning] = useState(false);
   const [currentTimerMode, setCurrentTimerMode] = useState(TimerModes.POMODORO);
   const [currentPomodoroCount, setCurrentPomodoroCount] = useState(0);
-  const [hasFinished, setHasFinished] = useState(false);
 
-  // TODO FIX GETTING CALLED TWICE
-useEffect(() => {
-  let interval;
-
-  if (timerIsRunning && !hasFinished) {
-    interval = setInterval(() => {
-      setTime(prevTime => {
-        if (prevTime > 0) {
-          return prevTime - 1;
-        } else {
-          clearInterval(interval);
-          if (!hasFinished){
-            setHasFinished(true);
-            changeModeOnFinish();
-            console.log("Countdown finished!");
+  useEffect(() => {
+    let interval;
+    if (timerIsRunning) {
+      interval = setInterval(() => {
+        setTime(prevTime => {
+          if (prevTime > 0) {
+            return prevTime - 1;
+          } else {
+            clearInterval(interval);
+            handleTimerEnd();
+            return 0;
           }
-          
-          return 0;
+        });
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [timerIsRunning, currentTimerMode]);
+
+  const handleTimerEnd = () => {
+    if (currentTimerMode === TimerModes.POMODORO) {
+      setCurrentPomodoroCount(prevCount => {
+        const newCount = prevCount + 1;
+        if (newCount % 4 === 0) {
+          changeTimerMode(TimerModes.LONG_BREAK);
+        } else {
+          changeTimerMode(TimerModes.SHORT_BREAK);
         }
+        return newCount;
       });
-    }, 1000);
-  } 
+    } else {
+      changeTimerMode(TimerModes.POMODORO);
+    }
+  };
 
-  // Cleanup interval on unmount or when timer is stopped
-  return () => clearInterval(interval);
-}, [timerIsRunning, hasFinished]);
-
-
-const changeModeOnFinish = () => {
-  if (currentTimerMode === TimerModes.POMODORO) {
-    setCurrentPomodoroCount(prevCount => {
-      const newCount = prevCount + 1;
-      if (newCount % 4 === 0) {
-        changeTimerMode(TimerModes.LONG_BREAK);
-      } else {
-        changeTimerMode(TimerModes.SHORT_BREAK);
-      }
-      return newCount;
-    });
-  } else if (currentTimerMode === TimerModes.SHORT_BREAK || currentTimerMode === TimerModes.LONG_BREAK) {
-    changeTimerMode(TimerModes.POMODORO);
-  }
-  setHasFinished(false);
+const changeTimerMode = (newMode) => {
+  setTimerIsRunning(false);
+  setCurrentTimerMode(newMode);
+  setTime(modeDurationsInSeconds[newMode]);
 };
 
-
-  const changeTimerMode = (newMode) => {
-    if (currentTimerMode !== newMode){
-      setTimerIsRunning(false);
-      setCurrentTimerMode(newMode);
-      setTime(modeDurationsInSeconds[newMode])
-      setHasFinished(false);
-    }
-  }
-
-  const startTimerClick = () => {
-    setTimerIsRunning(true);
-  }
-
-  const pauseTimerClick = () => {
-    setTimerIsRunning(false);
-  }
-
+  const startTimerClick = () => setTimerIsRunning(true);
+  const pauseTimerClick = () => setTimerIsRunning(false);
   const restartTimerClick = () => {
-    setTimerIsRunning(false)
-    setTime(modeDurationsInSeconds[currentTimerMode])
-    setHasFinished(false);
+    setTimerIsRunning(false);
+    setTime(modeDurationsInSeconds[currentTimerMode]);
   }
 
   const minutes = Math.floor(time / 60);

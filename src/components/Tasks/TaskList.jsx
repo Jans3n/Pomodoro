@@ -71,13 +71,13 @@ function Tasks() {
         setOpenTaskItemId(id);
       }
     } else if (openTaskItemId === id) {
-      setOpenTaskItemId(null); // Close the TaskItem if it's already open
+      setOpenTaskItemId(null);
     } else if (openTaskItemId !== null) {
       if (window.confirm("Another task is being edited. Do you want to close it and edit this task?")) {
-        setOpenTaskItemId(id); // Close the other task and open the new one
+        setOpenTaskItemId(id);e
       }
     } else {
-      setOpenTaskItemId(id); // Open the selected TaskItem
+      setOpenTaskItemId(id);
     }
   };
 
