@@ -10,7 +10,7 @@ import ArrowDownIcon from '../icons/ArrowDownIcon';
 function TaskItem({task, toggleCompleted, editTask, deleteTask, isTaskItemOpen, handleTaskItemToggle}) {
 
   const [PomodorosPassed, setPomodorosPassed] = useState(task.pomodorosPassed)
-  const [TaskText, setTaskText] = useState(task.text)
+  const [TaskDescription, setTaskDescription] = useState(task.taskDescription)
   const [TaskPomodoros, setTaskPomodoros] = useState(task.pomodoros)
 
   const handleCompletedTaskChange = () => {
@@ -18,12 +18,12 @@ function TaskItem({task, toggleCompleted, editTask, deleteTask, isTaskItemOpen, 
   }
 
   const handleSaveTask = () => {
-    editTask(task.id, TaskText, TaskPomodoros)
+    editTask(task, TaskDescription, TaskPomodoros)
     handleTaskItemToggle()
   }
 
   const handleCancelEditTask = () => {
-    setTaskText(task.text)
+    setTaskDescription(task.taskDescription)
     setTaskPomodoros(task.pomodoros)
     handleTaskItemToggle()
   }
@@ -86,8 +86,9 @@ function TaskItem({task, toggleCompleted, editTask, deleteTask, isTaskItemOpen, 
             <div>
               <div className='TaskInformation'>
                 <div className='TaskInput'>
-                  <input type="text" value={TaskText} 
-                  onChange={(e) => setTaskText(e.target.value)}
+                  <input type="text" 
+                  value={TaskDescription} 
+                  onChange={e => setTaskDescription(e.target.value)}
                   placeholder='What do you have planned?'
                   className='editInputField'
                   maxLength={50}/>
@@ -139,7 +140,7 @@ function TaskItem({task, toggleCompleted, editTask, deleteTask, isTaskItemOpen, 
                   style={buttonStyle}/>
                 }
                 <div className='TaskText' style={task.completed ? {textDecoration: 'line-through', color: 'rgb(85, 85, 85)'} : {}}>
-                  {task.text}
+                  {task.taskDescription}
                 </div>
               </div>
               <div className='RightSideTask'>

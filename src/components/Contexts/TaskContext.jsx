@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 export const TaskContext = createContext();
 
@@ -9,11 +10,21 @@ export const TaskProvider = ({ children }) => {
     { id: 3, text: "This is the third Task", pomodoros: 4, pomodorosPassed: 0, completed: false }
   ]);
 
+  useEffect(async () => {
+    console.log("Fetching tasks from database...")
+    await axios.get(`https://localhost:7044/api/tasks/`)
+    .then(res => {
+      const tasks = res.data
+      setTasks(tasks)
+      console.log(tasks)
+    })
+  }, [])
+
   const incrementPomodorosPassedForAllTasks = () => {
     setTasks(prevTasks => 
       prevTasks.map(task => ({ ...task, pomodorosPassed: task.pomodorosPassed + 1 })),
     );
-    console.log(tasks[1].pomodorosPassed)
+
   };
 
   return (

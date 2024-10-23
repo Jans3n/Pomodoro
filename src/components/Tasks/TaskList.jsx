@@ -3,24 +3,28 @@ import TaskItem from './TaskItem';
 import './TaskList.css'
 import TaskInputField from '../UI/TaskInputField';
 import { TaskContext } from '../Contexts/TaskContext';
+import axios from 'axios';
 
 function Tasks({setIncrementPomodoros}) {
 
   const [taskText, setTaskText] = useState('');
-  const { tasks, setTasks } = useContext(TaskContext);
+  const {tasks, setTasks } = useContext(TaskContext);
 
   const [isTaskMenuOpen, setIsTaskMenuOpen] = useState(false);
   const [openTaskItemId, setOpenTaskItemId] = useState(null);
   
-  const addTask = (text, pomodoros) => {
+  const addTask = async (text, pomodoros) => {
     const newTask = {
-      id: Date.now(),
-      text: text,
-      pomodoros,
-      completed: false
+      taskDescription: text,
+      pomodoros: pomodoros,
+      pomodorosPassed: 0,
+      isCompleted: false
     };
-    setTasks([newTask, ...tasks])
-    setTaskText('')
+    await axios.post(`https://localhost:7044/api/tasks/`, newTask)
+    .then(res => {
+      setTasks([newTask, ...tasks])
+      setTaskText('')
+    })
   }
 
   const toggleCompleted = (id) => {
@@ -33,13 +37,25 @@ function Tasks({setIncrementPomodoros}) {
     }))
   }
 
-  const editTask = (id, newText, newPomodoros) => {
-    setTasks(tasks.map(task => {
-      if (task.id === id) {
-        return { ...task, text: newText, pomodoros: newPomodoros };
-      }
-      return task;
-    }));
+  const editTask = async (oldTaskData, newTaskDescription, newPomodoros) => {
+    const taskObject = {
+      id: oldTaskData.id,
+      taskDescription: newTaskDescription,
+      pomodoros: newPomodoros,
+      pomodorosPassed: oldTaskData.pomodorosPassed,
+      isComplete: oldTaskData.isComplete,
+    }
+    await axios.put(`https://localhost:7044/api/tasks/` + oldTaskData.id, taskObject)
+    .then(res => {
+      setTasks(tasks.map(task => {
+            if (task.id === oldTaskData.id) {
+              return { ...task, taskDescription: newTaskDescription, pomodoros: newPomodoros };
+            }
+            return task;
+          }));
+    })
+    console.log(taskObject)
+    
   }
 
   const deleteTask = (id) => {
