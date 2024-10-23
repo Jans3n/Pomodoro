@@ -9,7 +9,7 @@ import ArrowDownIcon from '../icons/ArrowDownIcon';
 
 function TaskItem({task, toggleCompleted, editTask, deleteTask, isTaskItemOpen, handleTaskItemToggle}) {
 
-  const [PomodorosPassed, setPomodorosPassed] = useState(0)
+  const [PomodorosPassed, setPomodorosPassed] = useState(task.pomodorosPassed)
   const [TaskText, setTaskText] = useState(task.text)
   const [TaskPomodoros, setTaskPomodoros] = useState(task.pomodoros)
 

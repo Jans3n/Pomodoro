@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import CustomButton from '../UI/CustomButton';
+import React, { useEffect, useState, useContext } from 'react'
 import TaskItem from './TaskItem';
-import TaskHeader from './TaskHeader';
 import './TaskList.css'
 import TaskInputField from '../UI/TaskInputField';
+import { TaskContext } from '../Contexts/TaskContext';
 
-function Tasks() {
+function Tasks({setIncrementPomodoros}) {
 
   const [taskText, setTaskText] = useState('');
-  const [tasks, setTasks] = useState([
-    { id: 1, text: "This is the first Task", pomodoros: 1, completed: false },
-    { id: 2, text: "This is the second Task", pomodoros: 2, completed: true },
-    { id: 3, text: "This is the third Task", pomodoros: 4, completed: false }
-  ])
+  const { tasks, setTasks } = useContext(TaskContext);
 
   const [isTaskMenuOpen, setIsTaskMenuOpen] = useState(false);
   const [openTaskItemId, setOpenTaskItemId] = useState(null);

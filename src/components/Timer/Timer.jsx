@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import CustomButton from '../UI/CustomButton';
 import TimerButton from '../UI/TimerModeButton';
 import './Timer.css'
 import IconButton from '../UI/IconButton';
 import SettingsIcon from '../icons/Settingsicon';
 import RestartIcon from '../icons/RestartIcon';
+import { TaskContext } from '../Contexts/TaskContext';
 
 const TimerModes = {
   POMODORO: 'pomodoro',
@@ -22,8 +23,8 @@ const modeDurationsInSeconds = {
   // [TimerModes.LONG_BREAK]: 15 * 60,
 };
 
-function Timer() {
-
+function Timer({}) {
+  const { incrementPomodorosPassedForAllTasks } = useContext(TaskContext);
   const [time, setTime] = useState(modeDurationsInSeconds[TimerModes.POMODORO]);
   const [timerIsRunning, setTimerIsRunning] = useState(false);
   const [currentTimerMode, setCurrentTimerMode] = useState(TimerModes.POMODORO);
@@ -48,10 +49,17 @@ function Timer() {
     return () => clearInterval(interval);
   }, [timerIsRunning, currentTimerMode]);
 
+  useEffect(() => {
+    if (currentPomodoroCount >= 0) {
+      incrementPomodorosPassedForAllTasks();
+    }
+  }, [currentPomodoroCount]);
+
   const handleTimerEnd = () => {
     if (currentTimerMode === TimerModes.POMODORO) {
       setCurrentPomodoroCount(prevCount => {
         const newCount = prevCount + 1;
+        // incrementPomodorosPassedForAllTasks()
         if (newCount % 4 === 0) {
           changeTimerMode(TimerModes.LONG_BREAK);
         } else {
