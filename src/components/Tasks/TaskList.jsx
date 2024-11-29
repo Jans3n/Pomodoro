@@ -5,10 +5,10 @@ import TaskInputField from '../UI/TaskInputField';
 import { TaskContext } from '../Contexts/TaskContext';
 import axios from 'axios';
 
-function Tasks({setIncrementPomodoros}) {
+function Tasks({}) {
 
   const [taskText, setTaskText] = useState('');
-  const {tasks, setTasks } = useContext(TaskContext);
+  const {tasks, setTasks, fetchTasksData } = useContext(TaskContext);
 
   const [isTaskMenuOpen, setIsTaskMenuOpen] = useState(false);
   const [openTaskItemId, setOpenTaskItemId] = useState(null);
@@ -22,19 +22,33 @@ function Tasks({setIncrementPomodoros}) {
     };
     await axios.post(`https://localhost:7044/api/tasks/`, newTask)
     .then(res => {
-      setTasks([newTask, ...tasks])
+      // setTasks([newTask, ...tasks])
+      fetchTasksData()
       setTaskText('')
+      console.log('====================================');
+      console.log(tasks);
+      console.log('====================================');
     })
   }
 
-  const toggleCompleted = (id) => {
-    setTasks(tasks.map(task => {
-      if (task.id == id){
-        return {...task, completed: !task.completed}
-      } else {
-        return task
+  const toggleCompleted = async (id, isComplete) => {
+    const patchIsCompleteObject = [
+      {
+        op: "replace",
+        path: "/iscomplete",
+        value: !isComplete
       }
-    }))
+    ]
+    await axios.patch(`https://localhost:7044/api/tasks/` + id, patchIsCompleteObject)
+    .then(res => {
+      setTasks(tasks.map(task => {
+        if (task.id == id){
+          return {...task, isComplete: !task.isComplete}
+        } else {
+          return task
+        }
+      }))
+    })
   }
 
   const editTask = async (oldTaskData, newTaskDescription, newPomodoros) => {

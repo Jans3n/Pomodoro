@@ -14,7 +14,7 @@ function TaskItem({task, toggleCompleted, editTask, deleteTask, isTaskItemOpen, 
   const [TaskPomodoros, setTaskPomodoros] = useState(task.pomodoros)
 
   const handleCompletedTaskChange = () => {
-    toggleCompleted(task.id)
+    toggleCompleted(task.id, task.isComplete)
   }
 
   const handleSaveTask = () => {
@@ -126,7 +126,7 @@ function TaskItem({task, toggleCompleted, editTask, deleteTask, isTaskItemOpen, 
           :
             <>
               <div className='LeftSideTask'>
-                {task.completed 
+                {task.isComplete 
                 ? <IconButton
                   icon={<CheckFullIcon/>}
                   onClick={() => handleCompletedTaskChange()} 

@@ -10,7 +10,11 @@ export const TaskProvider = ({ children }) => {
     { id: 3, text: "This is the third Task", pomodoros: 4, pomodorosPassed: 0, completed: false }
   ]);
 
-  useEffect(async () => {
+  useEffect(() => {
+    fetchTasksData();
+  }, [])
+
+  const fetchTasksData = async () => {
     console.log("Fetching tasks from database...")
     await axios.get(`https://localhost:7044/api/tasks/`)
     .then(res => {
@@ -18,17 +22,21 @@ export const TaskProvider = ({ children }) => {
       setTasks(tasks)
       console.log(tasks)
     })
-  }, [])
+  }
 
-  const incrementPomodorosPassedForAllTasks = () => {
-    setTasks(prevTasks => 
-      prevTasks.map(task => ({ ...task, pomodorosPassed: task.pomodorosPassed + 1 })),
-    );
+  const incrementPomodorosPassedForAllTasks = async () => {
+    await axios.put(`https://localhost:7044/api/tasks/increment-pomodoro-passed`)
+    .then(res => {
+      setTasks(prevTasks => 
+        prevTasks.map(task => ({ ...task, pomodorosPassed: task.pomodorosPassed + 1 })),
+      );
+    })
+    
 
   };
 
   return (
-    <TaskContext.Provider value={{ tasks, setTasks, incrementPomodorosPassedForAllTasks }}>
+    <TaskContext.Provider value={{ tasks, setTasks, incrementPomodorosPassedForAllTasks, fetchTasksData }}>
       {children}
     </TaskContext.Provider>
   );
