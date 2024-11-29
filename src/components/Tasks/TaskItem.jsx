@@ -28,6 +28,11 @@ function TaskItem({task, toggleCompleted, editTask, deleteTask, isTaskItemOpen, 
     handleTaskItemToggle()
   }
 
+  const handleDeleteTask = () => {
+    deleteTask(task.id)
+    handleTaskItemToggle()
+  }
+
   const handlePomodoroInputChange = (e) => {
     const inputValue = e.target.value;
     if (/^\d{0,2}$/.test(inputValue) && (inputValue === '' || parseInt(inputValue) <= 24 && parseInt(inputValue) >= 1)) {
@@ -119,8 +124,12 @@ function TaskItem({task, toggleCompleted, editTask, deleteTask, isTaskItemOpen, 
                 </div>
               </div>
               <div className='TaskButtons'>
-                <button className='CancelTaskButton' onClick={handleCancelEditTask}>Cancel</button>
-                <button className='SaveTaskButton' onClick={handleSaveTask}>Save</button>
+                <button className='DeleteTaskButton' onClick={handleDeleteTask}>Delete</button>
+                <div>
+                  <button className='CancelTaskButton' onClick={handleCancelEditTask}>Cancel</button>
+                  <button className='SaveTaskButton' onClick={handleSaveTask}>Save</button>
+                </div>
+                
               </div>
             </div>
           :

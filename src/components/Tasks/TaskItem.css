@@ -151,7 +151,7 @@ input[type=number]::-webkit-outer-spin-button {
   opacity: 1;
 }
 
-.CancelTaskButton{
+.CancelTaskButton, .DeleteTaskButton{
   align-items: center;
   justify-content: center;
   text-align: center;

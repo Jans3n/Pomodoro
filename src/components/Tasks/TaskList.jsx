@@ -22,7 +22,6 @@ function Tasks({}) {
     };
     await axios.post(`https://localhost:7044/api/tasks/`, newTask)
     .then(res => {
-      // setTasks([newTask, ...tasks])
       fetchTasksData()
       setTaskText('')
       console.log('====================================');
@@ -72,9 +71,14 @@ function Tasks({}) {
     
   }
 
-  const deleteTask = (id) => {
-    const newTasks = tasks.filter(task => task.id !== id)
-    setTasks(newTasks)
+  const deleteTask = async (id) => {
+    await axios.delete(`https://localhost:7044/api/tasks/` + id)
+    .then(res => {
+      const newTasks = tasks.filter(task => task.id !== id)
+      setTasks(newTasks)
+    })
+
+    
   }
 
   const handleTaskMenuToggle = () => {
