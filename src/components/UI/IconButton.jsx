@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import SettingsIcon from '../icons/Settingsicon'
+import React, { useState } from 'react'
 import './IconButton.css'
 
 function IconButton({icon, onClick, shouldSpin, style}) {

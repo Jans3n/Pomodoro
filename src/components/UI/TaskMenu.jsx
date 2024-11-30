@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './TaskMenu.css'
 import IconButton from './IconButton';
 import ArrowUpIcon from '../icons/ArrowUpIcon'

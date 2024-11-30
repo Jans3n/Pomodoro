@@ -148,7 +148,7 @@ function TaskItem({task, toggleCompleted, editTask, deleteTask, isTaskItemOpen, 
                   shouldSpin={false} 
                   style={buttonStyle}/>
                 }
-                <div className='TaskText' style={task.completed ? {textDecoration: 'line-through', color: 'rgb(85, 85, 85)'} : {}}>
+                <div className='TaskText' style={task.isComplete ? {textDecoration: 'line-through', color: 'rgb(85, 85, 85)'} : {}}>
                   {task.taskDescription}
                 </div>
               </div>

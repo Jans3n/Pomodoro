@@ -13,14 +13,14 @@ const TimerModes = {
   LONG_BREAK: 'longBreak',
 };
 
-// TODO automatically change to short break or long break after timer hits 0
+// Seconds on 1 for testing purposes
 const modeDurationsInSeconds = {
-  [TimerModes.POMODORO]: 1,
-  [TimerModes.SHORT_BREAK]: 1,
-  [TimerModes.LONG_BREAK]: 1,
-  // [TimerModes.POMODORO]: 25 * 60,
-  // [TimerModes.SHORT_BREAK]: 5 * 60,
-  // [TimerModes.LONG_BREAK]: 15 * 60,
+  // [TimerModes.POMODORO]: 1,
+  // [TimerModes.SHORT_BREAK]: 1,
+  // [TimerModes.LONG_BREAK]: 1,
+  [TimerModes.POMODORO]: 25 * 60,
+  [TimerModes.SHORT_BREAK]: 5 * 60,
+  [TimerModes.LONG_BREAK]: 15 * 60,
 };
 
 function Timer({}) {
@@ -65,7 +65,6 @@ function Timer({}) {
     if (currentTimerMode === TimerModes.POMODORO) {
       setCurrentPomodoroCount(prevCount => {
         const newCount = prevCount + 1;
-        // incrementPomodorosPassedForAllTasks()
         if (newCount % 4 === 0) {
           changeTimerMode(TimerModes.LONG_BREAK);
         } else {
@@ -120,7 +119,7 @@ const changeTimerMode = (newMode) => {
 
         <IconButton 
           icon={<SettingsIcon/>}
-          onClick={() => alert("settings clicked")} 
+          onClick={() => alert("settings clicked, Work in progress")} 
           shouldSpin={false}
           />
         </div>
