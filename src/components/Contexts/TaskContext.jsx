@@ -32,12 +32,71 @@ export const TaskProvider = ({ children }) => {
         prevTasks.map(task => ({ ...task, pomodorosPassed: task.pomodorosPassed + 1 })),
       );
     })
-    
-
   };
 
+  const addTask = async (text, pomodoros) => {
+    const newTask = {
+      taskDescription: text,
+      pomodoros: pomodoros,
+      pomodorosPassed: 0,
+      isCompleted: false
+    };
+    await axios.post(`https://localhost:7044/api/tasks/`, newTask)
+    .then(res => {
+      fetchTasksData()
+    })
+  }
+
+  const editTask = async (oldTaskData, newTaskDescription, newPomodoros) => {
+    const taskObject = {
+      id: oldTaskData.id,
+      taskDescription: newTaskDescription,
+      pomodoros: newPomodoros,
+      pomodorosPassed: oldTaskData.pomodorosPassed,
+      isComplete: oldTaskData.isComplete,
+    }
+    await axios.put(`https://localhost:7044/api/tasks/` + oldTaskData.id, taskObject)
+    .then(res => {
+      setTasks(tasks.map(task => {
+            if (task.id === oldTaskData.id) {
+              return { ...task, taskDescription: newTaskDescription, pomodoros: newPomodoros };
+            }
+            return task;
+          }));
+    })
+    console.log(taskObject)
+  }
+
+  const deleteTask = async (id) => {
+    await axios.delete(`https://localhost:7044/api/tasks/` + id)
+    .then(res => {
+      const newTasks = tasks.filter(task => task.id !== id)
+      setTasks(newTasks)
+    })
+  }
+
+  const toggleCompleted = async (id, isComplete) => {
+    const patchIsCompleteObject = [
+      {
+        op: "replace",
+        path: "/iscomplete",
+        value: !isComplete
+      }
+    ]
+    await axios.patch(`https://localhost:7044/api/tasks/` + id, patchIsCompleteObject)
+    .then(res => {
+      setTasks(tasks.map(task => {
+        if (task.id == id){
+          return {...task, isComplete: !task.isComplete}
+        } else {
+          return task
+        }
+      }))
+    })
+  }
+
   return (
-    <TaskContext.Provider value={{ tasks, setTasks, incrementPomodorosPassedForAllTasks, fetchTasksData }}>
+    <TaskContext.Provider value={{ tasks, setTasks, incrementPomodorosPassedForAllTasks, fetchTasksData, editTask, addTask, deleteTask, toggleCompleted }}>
       {children}
     </TaskContext.Provider>
   );
