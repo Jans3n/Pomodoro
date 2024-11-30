@@ -1,19 +1,21 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './TaskMenu.css'
 import IconButton from './IconButton';
 import ArrowUpIcon from '../icons/ArrowUpIcon'
 import ArrowDownIcon from '../icons/ArrowDownIcon';
+import { TaskContext } from '../Contexts/TaskContext';
 
-function TaskMenu({onClose, addTask}) {
+function TaskMenu({onClose}) {
 
   const [taskText, setTaskText] = useState('');
   const [pomodoroInputValue, setPomodoroInputValue] = useState(1)
+  const {addTask} = useContext(TaskContext);
 
   const handleSaveTask = () => {
     // TODO Add error handling (toast)
     if (taskText != '' && Number(pomodoroInputValue) != 0){
-      console.log('Task saved:', taskText, pomodoroInputValue);
       addTask(taskText, pomodoroInputValue)
+      console.log('Task saved:', taskText, pomodoroInputValue);
       onClose();
     }
   };

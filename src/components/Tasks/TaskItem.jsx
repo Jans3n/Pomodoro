@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './TaskItem.css'
 import IconButton from '../UI/IconButton';
 import CheckFullIcon from '../icons/CheckFullIcon';
@@ -6,9 +6,11 @@ import CheckIcon from '../icons/CheckIcon';
 import EditIcon from '../icons/EditIcon';
 import ArrowUpIcon from '../icons/ArrowUpIcon';
 import ArrowDownIcon from '../icons/ArrowDownIcon';
+import { TaskContext } from '../Contexts/TaskContext';
 
-function TaskItem({task, toggleCompleted, editTask, deleteTask, isTaskItemOpen, handleTaskItemToggle}) {
+function TaskItem({task, isTaskItemOpen, handleTaskItemToggle}) {
 
+  const {editTask, toggleCompleted, deleteTask} = useContext(TaskContext);
   const [PomodorosPassed, setPomodorosPassed] = useState(task.pomodorosPassed)
   const [TaskDescription, setTaskDescription] = useState(task.taskDescription)
   const [TaskPomodoros, setTaskPomodoros] = useState(task.pomodoros)
