@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, useRef } from 'react'
 import CustomButton from '../UI/CustomButton';
 import TimerButton from '../UI/TimerModeButton';
 import './Timer.css'
@@ -24,11 +24,12 @@ const modeDurationsInSeconds = {
 };
 
 function Timer({}) {
-  const { incrementPomodorosPassedForAllTasks } = useContext(TaskContext);
+  const {tasks, incrementPomodorosPassedForAllTasks } = useContext(TaskContext);
   const [time, setTime] = useState(modeDurationsInSeconds[TimerModes.POMODORO]);
   const [timerIsRunning, setTimerIsRunning] = useState(false);
   const [currentTimerMode, setCurrentTimerMode] = useState(TimerModes.POMODORO);
   const [currentPomodoroCount, setCurrentPomodoroCount] = useState(0);
+  const firstRender = useRef(true);
 
   useEffect(() => {
     let interval;
@@ -50,7 +51,12 @@ function Timer({}) {
   }, [timerIsRunning, currentTimerMode]);
 
   useEffect(() => {
-    if (currentPomodoroCount >= 0) {
+    if (firstRender.current) {
+      firstRender.current = false; 
+      return;
+    }
+
+    if (currentPomodoroCount >= 0 && tasks.length > 0) {
       incrementPomodorosPassedForAllTasks();
     }
   }, [currentPomodoroCount]);

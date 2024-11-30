@@ -110,6 +110,7 @@ function Tasks({}) {
     }
   };
 
+
   return (
     <>
       <div className='TaskContainer'>
@@ -119,17 +120,24 @@ function Tasks({}) {
           handleTaskMenuToggle={handleTaskMenuToggle}
         />
         <div className='TaskItemsContainer'>
-          {tasks.map(task => (
-          <TaskItem 
-            key={task.id}
-            task={task}
-            editTask={editTask}
-            deleteTask={deleteTask}
-            toggleCompleted={toggleCompleted}
-            handleTaskItemToggle={() => handleTaskItemToggle(task.id)}
-            isTaskItemOpen={openTaskItemId === task.id}
-          />
-        ))}
+          {tasks.length === 0 ?
+            (
+              <div className="EmptyTasksList">No task available</div>
+            )
+            :
+            (tasks.map(task => (
+            <TaskItem 
+              key={task.id}
+              task={task}
+              editTask={editTask}
+              deleteTask={deleteTask}
+              toggleCompleted={toggleCompleted}
+              handleTaskItemToggle={() => handleTaskItemToggle(task.id)}
+              isTaskItemOpen={openTaskItemId === task.id}
+            />
+            )))
+          }
+          
         </div>
         
       </div>
