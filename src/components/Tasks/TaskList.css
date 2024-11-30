@@ -1,0 +1,27 @@
+.TaskContainer{
+  display: flex;
+  flex-direction: column;
+  height: 105%;
+  border-radius: 20px;
+}
+
+.TaskItemsContainer{
+  height: 100%;
+  overflow: auto;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.EmptyTasksList{
+  display: flex;
+  background-color: white;
+  height: 15%;
+  padding: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  font-size: 20px;
+}

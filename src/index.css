@@ -1,7 +1,18 @@
+body{
+  display: flex;
+  height: 100vh;
+  margin: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  overflow: hidden;
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
+  font-family: "Space Grotesk", sans-serif;
+  line-height: 1;
+  font-weight: 600;
 
   /* color-scheme: light dark; */
   /* color: rgba(255, 255, 255, 0.87); */
@@ -11,6 +22,31 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 0; */
+
+  /* background-image: url('/src/assets/images/ice.jpg'); */
+  /* background-size: cover; */
+  /* background-position: center; */
+  /* object-fit: cover; */
+
+  /* display: flex;
+  height: 100vh;
+  color: #fff;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch; */
+}
+
+
+*{
+  margin: 0;
+  padding: 0;
 }
 
 /* body {

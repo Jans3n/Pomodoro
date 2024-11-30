@@ -1,0 +1,22 @@
+.ModifyTaskContainer{
+  padding-bottom: 1rem;
+}
+
+.addTaskButton{
+  font-family: 'Space Grotesk';
+  width: 100%;
+  height: 64px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0.8;
+  margin-top: 12px;
+  border: 2px dashed rgb(255, 255, 255);
+  font-size: 20px;
+  font-weight: 600;
+  gap: 0.3rem;
+  color: white
+}
