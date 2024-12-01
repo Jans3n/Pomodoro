@@ -26,7 +26,7 @@ export const TaskProvider = ({ children }) => {
   }
 
   const incrementPomodorosPassedForAllTasks = async () => {
-    await axios.put(`https://localhost:7044/api/tasks/increment-pomodoro-passed`)
+    await axios.put(`https://localhost:7044/api/tasks/increment-pomodoros`)
     .then(res => {
       setTasks(prevTasks => 
         prevTasks.map(task => ({ ...task, pomodorosPassed: task.pomodorosPassed + 1 })),
@@ -76,23 +76,38 @@ export const TaskProvider = ({ children }) => {
   }
 
   const toggleCompleted = async (id, isComplete) => {
-    const patchIsCompleteObject = [
+    await axios.patch(`https://localhost:7044/api/tasks/${id}/completion`, isComplete,
       {
-        op: "replace",
-        path: "/iscomplete",
-        value: !isComplete
+        headers: {"Content-Type": "application/json"}
       }
-    ]
-    await axios.patch(`https://localhost:7044/api/tasks/` + id, patchIsCompleteObject)
+    )
     .then(res => {
       setTasks(tasks.map(task => {
-        if (task.id == id){
-          return {...task, isComplete: !task.isComplete}
-        } else {
-          return task
-        }
-      }))
+            if (task.id == id){
+              return {...task, isComplete: !task.isComplete}
+            } else {
+              return task
+            }
+          }))
     })
+
+    // const patchIsCompleteObject = [
+    //   {
+    //     op: "replace",
+    //     path: "/iscomplete",
+    //     value: !isComplete
+    //   }
+    // ]
+    // await axios.patch(`https://localhost:7044/api/tasks/` + id, patchIsCompleteObject)
+    // .then(res => {
+    //   setTasks(tasks.map(task => {
+    //     if (task.id == id){
+    //       return {...task, isComplete: !task.isComplete}
+    //     } else {
+    //       return task
+    //     }
+    //   }))
+    // })
   }
 
   return (
