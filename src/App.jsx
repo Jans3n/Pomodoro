@@ -1,31 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import CustomButton from './components/UI/CustomButton'
-import Timer from './components/Timer/Timer'
-import TaskList from './components/Tasks/TaskList'
 import './App.css'
-import { TaskProvider } from './components/Contexts/TaskContext'
+import Home from './Pages/Home'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Register from './Pages/Register'
+import Login from './Pages/Login'
 
 function App() {
   
   return (
     <>
-      <TaskProvider>
-    <div className='Pomodoro'>
-      <div className='BackgroundImage'></div>
-      <div className='Top'></div>
-        <div className='AppContainer'>
-          <div className='Timer'>
-            <Timer />
-          </div>
-          <div className='TaskList'>
-            <TaskList />
-          </div>
-        </div>
-      <div className='Bottom'></div>
-    </div>
-      
-      </TaskProvider>
-      
+    <Router>
+      <Routes>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/register' element={<Register/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='*' element={<Home/>}/>
+      </Routes>
+    </Router>
     </>
   )
 }
