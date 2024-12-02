@@ -1,8 +1,6 @@
 import React from "react";
 import './NavigationBar.css';
 import { Link } from "react-router-dom";
-import CustomButton from "./CustomButton";
-import RestartIcon from "../icons/RestartIcon";
 
 function NavigationBar({}) {
 
@@ -28,9 +26,6 @@ function NavigationBar({}) {
           </div>
         </div>
       </nav>
-        
-
-
     </>
   )
 }

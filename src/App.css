@@ -39,8 +39,8 @@
 
 .TaskList{
   position: absolute;
-  left: 100%; /* Position it to the right of the Timer */
-  margin-left: 4rem; /* Space between the timer and task list */
+  left: 100%;
+  margin-left: 4rem; 
   z-index: 2;
   width: 95%;
   height: 100%;
